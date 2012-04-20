@@ -16,9 +16,24 @@
 
     log("Subscribing to channel1");
 
+    var reload = false,
+        id;
+
+    var wait_or_reload = function() {
+        window.location.reload();
+    }
+
     jug.subscribe("channel1", function(data){
         log("Got data: " + data);
-        window.location.reload();
+        if (reload) {
+            if (id) {
+                clearTimeout(id);
+            }
+        }
+        else {
+            reload = true;
+        }
+        id = setTimeout(wait_or_reload, 500);
     });
 </script>
     {% if object_list %}
