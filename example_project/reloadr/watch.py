@@ -11,13 +11,21 @@ wm = pyinotify.WatchManager()  # Watch Manager
 mask = pyinotify.IN_MODIFY
 cwd = os.getcwd()
 
+EXTENSIONS = [
+    '.py',
+    '.html',
+    '.css',
+    '.js',
+]
+
 class EventHandler(pyinotify.ProcessEvent):
     def process_IN_MODIFY(self, event):
-        msg = "Modified: %s" % (event.pathname)
-        print msg
-        time.sleep(1)
-        jug = Juggernaut()
-        jug.publish("channel1", msg)
+        if any([True for ext in EXTENSIONS if event.pathname.endswith(ext)]):
+            msg = "Modified: %s" % (event.pathname)
+            print msg
+            time.sleep(1)
+            jug = Juggernaut()
+            jug.publish("channel1", msg)
 
 handler = EventHandler()
 notifier = pyinotify.Notifier(wm, handler)
