@@ -1,54 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta name="charset" content="utf-8">
-  <title>Juggernaut</title>
-  <script src="{{ MEDIA_URL }}/js/application.js" type="text/javascript" charset="utf-8"></script>
-  
-  <style type="text/css" media="screen">
-    h1 {
-      margin: 1em 0;
-    }
-    
-    #log {
-      padding: 5px;
-      background: #CCC;
-      height: 500px;
-      width: 400px;
-    }
-  </style>
-</head>
-<body>
-
-  <h1>Juggernaut - Hello World!</h1>
-  
-  <textarea id="log" readonly></textarea>
-  
-  <script type="text/javascript" charset="utf-8">
-    var logElement = document.getElementById("log");
-    logElement.value = "";
+<script src="{{ MEDIA_URL }}/js/application.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
     var log = function(data){
-      logElement.value += (data + "\n");
+        console.log(data);
     };
-    
+
     var jug = new Juggernaut({
-      secure: ('https:' == document.location.protocol),
-      host: document.location.hostname,
-      port: document.location.port || 80
+        secure: ('https:' == document.location.protocol),
+        host: '33.33.33.10',
+        port: 8080
     });
-    
+
     jug.on("connect", function(){ log("Connected") });
     jug.on("disconnect", function(){ log("Disconnected") });
     jug.on("reconnect", function(){ log("Reconnecting") });
-    
+
     log("Subscribing to channel1");
-    
+
     jug.subscribe("channel1", function(data){
-      log("Got data: " + data);
+        log("Got data: " + data);
+        window.location.reload();
     });
-  </script>
+</script>
     {% if object_list %}
-        <h1>Hi</h1>
+        <h1>Hello World</h1>
     <ul>
         {% for poll in object_list %}
         {{ poll }}
