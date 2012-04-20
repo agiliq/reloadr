@@ -16,7 +16,7 @@ RUN:
 
 Run
 
-    python relodr/watch.py
+    python reloadr/watch.py
 
 from your project directory
 
