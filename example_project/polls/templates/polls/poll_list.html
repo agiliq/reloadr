@@ -1,51 +1,14 @@
-<script src="{{ MEDIA_URL }}/js/application.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
-    var log = function(data){
-        console.log(data);
-    };
+{% extends "base.html" %}
 
-    var jug = new Juggernaut({
-        secure: ('https:' == document.location.protocol),
-        host: '33.33.33.10',
-        port: 8080
-    });
-
-    jug.on("connect", function(){ log("Connected") });
-    jug.on("disconnect", function(){ log("Disconnected") });
-    jug.on("reconnect", function(){ log("Reconnecting") });
-
-    log("Subscribing to channel1");
-
-    var reload = false,
-        id;
-
-    var wait_or_reload = function() {
-        window.location.reload();
-    }
-
-    jug.subscribe("channel1", function(data){
-        log("Got data: " + data);
-        if (reload) {
-            if (id) {
-                clearTimeout(id);
-            }
-        }
-        else {
-            reload = true;
-        }
-        id = setTimeout(wait_or_reload, 500);
-    });
-</script>
-    {% if object_list %}
-        <h1>Hello World</h1>
-    <ul>
-        {% for poll in object_list %}
-        {{ poll }}
-        {% endfor %}
-    </ul>
-    {% else %}
-        <h1>No recent polls</h1>
-    {% endif %}
-
-</body>
-</html>
+{% block content %}
+  {% if object_list %}
+      <h1>Hello Saket.</h1>
+  <ul>
+      {% for poll in object_list %}
+      {{ poll }}
+      {% endfor %}
+  </ul>
+  {% else %}
+      <h1>No recent polls</h1>
+  {% endif %}
+{% endblock %}

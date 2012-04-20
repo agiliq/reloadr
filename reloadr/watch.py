@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import os
-import time
 
 from juggernaut import Juggernaut
 
@@ -23,7 +22,6 @@ class EventHandler(pyinotify.ProcessEvent):
         if any([True for ext in EXTENSIONS if event.pathname.endswith(ext)]):
             msg = "Modified: %s" % (event.pathname)
             print msg
-            time.sleep(1)
             jug = Juggernaut()
             jug.publish("channel1", msg)
 
