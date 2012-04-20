@@ -7,9 +7,9 @@ all localhost pages in the browser.
 DEPENDENCIES:
 -------------
 
-(juggernaut)[https://github.com/maccman/juggernaut] (requires nodejs/redis)
+[juggernaut](https://github.com/maccman/juggernaut) requires nodejs/redis
 
-(pyinotify)[http://pyinotify.sourceforge.net/]
+[pyinotify](http://pyinotify.sourceforge.net/)
 
 RUN:
 ----
