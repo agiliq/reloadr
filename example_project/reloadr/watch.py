@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+import time
 
 from juggernaut import Juggernaut
 
@@ -14,6 +15,7 @@ class EventHandler(pyinotify.ProcessEvent):
     def process_IN_MODIFY(self, event):
         msg = "Modified: %s" % (event.pathname)
         print msg
+        time.sleep(1)
         jug = Juggernaut()
         jug.publish("channel1", msg)
 
