@@ -2,9 +2,10 @@
 
 import os
 
-from juggernaut import Juggernaut
-
+import redis
 import pyinotify
+
+from juggernaut import Juggernaut
 
 wm = pyinotify.WatchManager()  # Watch Manager
 mask = pyinotify.IN_MODIFY
@@ -17,12 +18,15 @@ EXTENSIONS = [
     '.js',
 ]
 
+REDIS_SERVER = "localhost"
+
 class EventHandler(pyinotify.ProcessEvent):
     def process_IN_MODIFY(self, event):
         if any([True for ext in EXTENSIONS if event.pathname.endswith(ext)]):
             msg = "Modified: %s" % (event.pathname)
             print msg
-            jug = Juggernaut()
+            r = redis.Redis(REDIS_SERVER)
+            jug = Juggernaut(r)
             jug.publish("channel1", msg)
 
 handler = EventHandler()
